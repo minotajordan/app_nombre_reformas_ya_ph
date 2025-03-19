@@ -96,6 +96,25 @@ export default function Home() {
     }
   };
 
+
+  useEffect(() => {
+    // Comprobar si ya existe el SDK, para evitar duplicados.
+    if (!document.getElementById("facebook-jssdk")) {
+      const script = document.createElement("script");
+      script.id = "facebook-jssdk";
+      script.async = true;
+      script.defer = true;
+      script.crossOrigin = "anonymous";
+      script.src =
+          "https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v22.0&appId=1425234881047230";
+      document.body.appendChild(script);
+
+      const fbRoot = document.createElement("div");
+      fbRoot.id = "fb-root";
+      document.body.insertBefore(fbRoot, document.body.firstChild);
+    }
+  }, []);
+
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     const x = (window.innerWidth / 2 - event.clientX) / 50;
     const y = (window.innerHeight / 2 - event.clientY) / 50;
@@ -196,24 +215,24 @@ export default function Home() {
       >
 
         <div
-            className="fixed top-0 left-0 w-full bg-gray-800 text-white text-sm font-medium py-2 px-4 shadow-md flex items-center z-50"
-            style={{animation: "fadeIn 1.5s ease-in-out"}}
+            className="hidden md:block fixed top-0 left-0 w-full bg-gray-800 text-white text-sm font-medium py-2 px-4 shadow-md flex items-center justify-center z-50"
         >
-          <p className="flex items-center justify-between w-full">
-    <span>
-      Desarrollado con
-      <span className="animate-beat inline-block pl-2 pr-0">❤️</span>
-      <span className="font-bold ml-1">Jordan Minota</span>
-    </span>
-            <a
-                href="https://www.facebook.com/Jordanminota/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-lg transition-colors duration-300"
-            >
-              Seguir
-            </a>
+          <p>
+            Desarrollado con
+            <span className="animate-beat inline-block pl-2 pr-0">❤️</span>
+            <span className="font-bold ml-1 mr-4 mb-4">Jordan Minota</span>
+            <div
+                className="fb-like"
+                data-href="https://www.facebook.com/Jordanminota/"
+                data-width=""
+                data-layout=""
+                data-action="like"
+                data-size="small"
+                data-share="false"
+            ></div>
           </p>
+          {/* Aquí el botón de "me gusta" de Facebook */}
+
         </div>
 
         <div className="absolute inset-0 pointer-events-none"/>
@@ -269,7 +288,8 @@ export default function Home() {
             style={{animation: "fadeIn 1.5s ease-in-out",}}
         >
           <p className="text-black">
-            Puedes reporta alguna falla o enviar mas diseños - Pensando en los que no pueden salir pero Apoyan al Gobierno del Cambio
+            Puedes reporta alguna falla o enviar mas diseños - Pensando en los que no pueden salir pero Apoyan al
+            Gobierno del Cambio
 
             <a
                 href="https://www.facebook.com/Jordanminota/"
