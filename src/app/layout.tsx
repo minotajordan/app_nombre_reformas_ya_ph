@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "App Reformas Ya! ",
+  title: "App Nombres + Reformas Ya! ",
   description: "Genera ahora tu apoyo digital a las reformas y compartela en tus redes, unidos somo mas fuertes #ReformasYa",
 };
 
