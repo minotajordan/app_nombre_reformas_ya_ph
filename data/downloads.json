@@ -1,0 +1,43 @@
+[
+  {
+    "timestamp": "2025-03-18T18:16:05.250Z",
+    "ip": "190.90.100.87",
+    "text": "JORDAN MINOTA"
+  },
+  {
+    "timestamp": "2025-03-18T18:19:43.398Z",
+    "ip": "190.90.100.87",
+    "text": "JULUMITO",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 Edg/134.0.0.0",
+    "referer": "http://localhost:3001/",
+    "host": "localhost:3001",
+    "customHeader": "none"
+  },
+  {
+    "timestamp": "2025-03-19T02:29:06.134Z",
+    "ip": "190.90.100.87",
+    "text": "ALAN",
+    "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_2_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+    "referer": "http://192.168.3.33:3001/",
+    "host": "192.168.3.33:3001",
+    "customHeader": "none"
+  },
+  {
+    "timestamp": "2025-03-19T02:29:49.295Z",
+    "ip": "190.90.100.82",
+    "text": "EMA",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 Edg/134.0.0.0",
+    "referer": "http://localhost:3001/",
+    "host": "localhost:3001",
+    "customHeader": "none"
+  },
+  {
+    "timestamp": "2025-03-19T02:30:55.345Z",
+    "ip": "190.90.100.82",
+    "text": "* A*AS: ",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 Edg/134.0.0.0",
+    "referer": "http://localhost:3001/",
+    "host": "localhost:3001",
+    "customHeader": "none"
+  }
+]
