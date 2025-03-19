@@ -236,7 +236,7 @@ export default function Home() {
       >
 
         <div
-            className="hidden md:block fixed top-0 left-0 w-full bg-gray-800 text-white text-sm font-medium py-2 px-4 shadow-md flex items-center justify-center z-50"
+            className="fixed top-0 left-0 w-full bg-gray-800 text-white text-sm font-medium py-2 px-4 shadow-md flex items-center justify-center z-50"
         >
           <p>
             Desarrollado con
