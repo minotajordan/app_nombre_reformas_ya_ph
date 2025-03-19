@@ -275,7 +275,7 @@ export default function Home() {
               onChange={handleInputChange}
               className="w-full px-4 py-3 bg-white text-gray-800 rounded-xl shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-center"
               maxLength={40}
-              placeholder="Escribe algo aquí..."
+              placeholder="Escribe aquí tu nombre..."
           />
         </div>
         {imageData ? (
