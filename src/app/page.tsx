@@ -211,17 +211,25 @@ export default function Home() {
     "rgba(143, 50, 146, 0.7)", // Morado
   ];
 
+  interface Particle {
+    x: number;
+    y: number;
+    size: number;
+    speedX: number;
+    speedY: number;
+    color: string;
+  }
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
 
     if (canvas && ctx) {
-      // Ajustar tamaño del canvas
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
 
       // Crear partículas iniciales
-      const particleArray: any[] = [];
+      const particleArray: Particle[] = [];
       const totalParticles = 50; // Número de partículas
 
       for (let i = 0; i < totalParticles; i++) {
