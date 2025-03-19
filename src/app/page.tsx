@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Head from "next/head";
 
 export default function Home() {
   const [inputText, setInputText] = useState<string>("");
@@ -198,6 +199,26 @@ export default function Home() {
   ];
 
   return (
+      <>
+
+        {/* Metadatos para SEO y redes sociales */}
+        <Head>
+          <title>Apoyo Digital a las Reformas Sociales</title>
+          <meta name="description" content="Crea ahora tu apoyo digital y súbelo a las redes #ReformasYa." />
+          <meta name="author" content="Jordan Minota" />
+          <meta name="keywords" content="Reformas sociales, Apoyo digital, Colombia, ReformasYa, Herramientas digitales" />
+          <meta property="og:title" content="Apoyo Digital a las Reformas Sociales" />
+          <meta property="og:description" content="Crea ahora tu apoyo digital y súbelo a las redes #ReformasYa." />
+          <meta property="og:image" content="https://example.com/path-to-your-image.png" />
+          <meta property="og:url" content="https://example.com" />
+          <meta property="og:type" content="website" />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content="Apoyo Digital a las Reformas Sociales" />
+          <meta name="twitter:description" content="Crea ahora tu apoyo digital y súbelo a las redes #ReformasYa." />
+          <meta name="twitter:image" content="https://example.com/path-to-your-image.png" />
+        </Head>
+
+
       <div
           className="relative flex flex-col items-center
           min-h-screen overflow-hidden
@@ -316,5 +337,6 @@ export default function Home() {
           </div>
         </footer>
       </div>
+    </>
   );
 }
