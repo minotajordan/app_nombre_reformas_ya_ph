@@ -7,6 +7,22 @@
   font-style: normal;
 }
 
+@keyframes pulseInput {
+  0%, 100% {
+    transform: scale(1); /* Sin cambio */
+    box-shadow: 0 0 4px rgba(0, 128, 255, 0.4); /* Brillo suave */
+  }
+  50% {
+    transform: scale(1.05); /* Incremento del tamaño */
+    box-shadow: 0 0 8px rgba(0, 128, 255, 0.6); /* Brillo más fuerte */
+  }
+}
+
+/* Animación aplicada al input */
+.animate-pulse-input {
+  animation: pulseInput 1.5s infinite ease-in-out;
+}
+
 @keyframes beat {
   0%, 100% {
     transform: scale(0.8); /* Tamaño normal */

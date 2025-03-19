@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useRef} from "react";
 import Image from "next/image";
 import Head from "next/head";
 
@@ -8,20 +8,23 @@ export default function Home() {
   const [inputText, setInputText] = useState<string>("");
   const [imageData, setImageData] = useState<string | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [textColor, setTextColor] = useState<string>("#003366");
+  const [textInitial, setTextInitial] = useState(true);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value.toUpperCase();
     setInputText(value);
-    generateImage(value);
+    generateImage(value).then();
   };
 
 
   const generateImage = async (text: string) => {
-    if (!text) {
-      setImageData(null);
-      return;
+    if ( !text || text.length === 0 ) {
+      // setImageData(null);
+      text = "ESCRIBE ALGO!"
+      setTextInitial(true);
+      // return;
     }
+    setTextInitial(false);
 
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
@@ -127,9 +130,9 @@ export default function Home() {
     const yellowThreshold = (window.innerHeight * 50) / 100;
 
     if (textSectionY <= yellowThreshold) {
-      setTextColor("#4a4a4a");
+      // setTextColor("#4a4a4a");
     } else {
-      setTextColor("#003366");
+      // setTextColor("#003366");
     }
   }, [mousePosition]);
 
@@ -198,10 +201,69 @@ export default function Home() {
     "Plan de recuperación: Se creará un plan de recuperación de la red pública.",
   ];
 
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const colors = [
+    "rgba(254, 174, 51, 0.7)", // Amarillo
+    "rgba(52, 53, 152, 0.7)",  // Azul
+    "rgba(248, 40, 12, 0.7)",  // Naranja
+    "rgba(3, 173, 67, 0.7)",   // Verde
+    "rgba(143, 50, 146, 0.7)", // Morado
+  ];
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext("2d");
+
+    if (canvas && ctx) {
+      // Ajustar tamaño del canvas
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      // Crear partículas iniciales
+      const particleArray: any[] = [];
+      const totalParticles = 50; // Número de partículas
+
+      for (let i = 0; i < totalParticles; i++) {
+        const size = Math.random() * 15 + 2; // Tamaño de partículas (entre 2px y 7px)
+        const x = Math.random() * canvas.width; // Posición inicial X
+        const y = Math.random() * canvas.height; // Posición inicial Y
+        const speedX = (Math.random() - 0.5) * 2; // Velocidad horizontal (-1 a 1)
+        const speedY = (Math.random() - 0.5) * 2; // Velocidad vertical (-1 a 1)
+        const color = colors[Math.floor(Math.random() * colors.length)]; // Color aleatorio
+
+        particleArray.push({ x, y, size, speedX, speedY, color });
+      }
+
+      const animate = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particleArray.forEach((particle) => {
+          particle.x += particle.speedX;
+          particle.y += particle.speedY;
+
+          // Rebote en los bordes
+          if (particle.x < 0 || particle.x > canvas.width) particle.speedX *= -1;
+          if (particle.y < 0 || particle.y > canvas.height) particle.speedY *= -1;
+
+          // Dibujar partícula
+          ctx.beginPath();
+          ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+          ctx.fillStyle = particle.color;
+          ctx.fill();
+        });
+
+        requestAnimationFrame(animate);
+      };
+
+      animate();
+    }
+    generateImage("").then();
+  }, []);
+
   return (
       <>
 
-        {/* Metadatos para SEO y redes sociales */}
         <Head>
           <title>Apoyo Digital a las Reformas Sociales</title>
           <meta name="description" content="Crea ahora tu apoyo digital y súbelo a las redes #ReformasYa." />
@@ -219,124 +281,140 @@ export default function Home() {
         </Head>
 
 
-      <div
-          className="relative flex flex-col items-center
+        {/* Fondo personalizado con partículas */}
+        <canvas
+            ref={canvasRef}
+            className="bg-white"
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              zIndex: -1,
+              // background: "#002233", // Fondo oscuro por defecto para resaltar partículas
+            }}
+        ></canvas>
+
+        <div
+            className="relative flex flex-col items-center
           min-h-screen overflow-hidden
           p-18 pt-24 md:p-24
           "
-          onMouseMove={handleMouseMove}
-          style={{
-            background: `linear-gradient(to bottom, 
-          #FFDD00 0%, #FFDD00 50%, 
-          #0072CE 50%, #0072CE 75%, 
-          #CE1126 75%, #CE1126 100%)`,
-            backgroundPosition: `${mousePosition.x}px ${mousePosition.y}px`,
-            transition: "background-position 0.1s ease-out",
-          }}
-      >
-
-        <div
-            className="fixed top-0 left-0 w-full bg-gray-800 text-white text-sm font-medium py-2 px-4 shadow-md flex items-center justify-center z-50"
-        >
-          <p>
-            Desarrollado con
-            <span className="animate-beat inline-block pl-2 pr-0">❤️</span>
-            <span className="font-bold ml-1 mr-4 mb-4">Jordan Minota</span>
-            <div
-                className="fb-like"
-                data-href="https://www.facebook.com/Jordanminota/"
-                data-width=""
-                data-layout=""
-                data-action="like"
-                data-size="small"
-                data-share="false"
-            ></div>
-          </p>
-          {/* Aquí el botón de "me gusta" de Facebook */}
-
-        </div>
-
-        <div className="absolute inset-0 pointer-events-none"/>
-        <h1
-            className="text-3xl font-bold mb-6 justify-center"
+            onMouseMove={handleMouseMove}
             style={{
-              color: textColor,
-              transition: "color 0.3s ease",
-              textShadow: "4px 4px 8px rgba(0, 0, 0, 0.5)",
+              backgroundPosition: `${mousePosition.x}px ${mousePosition.y}px`,
+              transition: "background-position 0.1s ease-out",
             }}
         >
-          Apoyo digital a las Reformas Sociales!
-        </h1>
-        <div className="relative w-full max-w-md">
+
+          <div
+              className="fixed top-0 left-0 w-full bg-gray-800 text-white text-sm font-medium py-2 px-4 shadow-md flex items-center justify-between z-50"
+          >
+
+            <p className="text-right">
+              Desarrollado con
+              <span className="animate-beat inline-block pl-2 pr-0">❤️</span>
+              <a
+                  href="https://www.facebook.com/Jordanminota/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 bg-blue-600 mr-4 ml-4 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-lg transition-colors duration-300"
+              >
+                <span className="animate-beat inline-block pr-0">  ⚡️ </span> Jordan Minota
+              </a>
+            </p>
+          </div>
+
+          <div className="absolute inset-0 pointer-events-none"/>
+          <h1
+              className="text-3xl font-bold mb-6 justify-center"
+              style={{
+                color: "#003366",
+                transition: "color 0.3s ease",
+                textShadow: "4px 4px 8px rgba(0, 0, 0, 0.5)",
+              }}
+          >
+            Apoyo digital a las Reformas Sociales!
+          </h1>
           <input
-              id="userInput"
               type="text"
               value={inputText}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 bg-white text-gray-800 rounded-xl shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-center"
-              maxLength={40}
+              className={`w-full md:w-1/2 px-4 py-3 bg-white text-gray-800 rounded-xl shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-center transition-all ${
+                  inputText === "" ? "animate-pulse-input" : ""
+              }`}
               placeholder="Escribe aquí tu nombre..."
           />
-        </div>
-        {imageData ? (
-            <Image
-                src={imageData}
-                alt="Texto dinámico generado"
-                width={400}
-                height={400}
-                className="my-6 max-w-none border border-gray-300 shadow-lg rounded-lg"
-            />
-        ) : (
-            <p
-                className="mt-6 text-sm text-black"
-                style={{
-                  transition: "color 0.3s ease",
-                }}
-            >
-              🖊️ Escribe algo para generar tu imagen.
-            </p>
-        )}
-        <button
-            onClick={handleDownload}
-            className=" shadow-lg border-2 border-gray-300
-            mt-4 bg-blue-600 text-white font-bold py-2 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition duration-150 disabled:bg-gray-300 disabled:cursor-not-allowed"
-            disabled={!imageData}
-        >
-          Descargar Imagen
-        </button>
-        <div
-            className="hidden md:block text-black fixed bottom-12 right-4 bg-gray-300 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-lg flex flex-col items-center z-50"
-            style={{animation: "fadeIn 1.5s ease-in-out",}}
-        >
-          <p className="text-black">
-            Puedes reporta alguna falla o enviar mas diseños - Pensando en los que no pueden salir pero Apoyan al
-            Gobierno del Cambio
+          {imageData ? (
+              <Image
+                  src={imageData}
+                  alt="Texto dinámico generado"
+                  width={400}
+                  height={400}
+                  className="my-6 max-w-none border border-gray-300 shadow-lg rounded-lg"
+              />
+          ) : (
+              <p
+                  className="mt-6 text-sm text-black"
+                  style={{
+                    transition: "color 0.3s ease",
+                  }}
+              >
+                🖊️ Escribe algo para generar tu imagen.
+              </p>
+          )}
+          <button
+              onClick={handleDownload}
+              className="shadow-lg border-2 border-gray-300
+            mt-4 bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-150 disabled:bg-gray-300 disabled:cursor-not-allowed"
+              disabled={!imageData || textInitial}
+          >
+            Descargar Imagen { textInitial }
+          </button>
 
-            <a
-                href="https://www.facebook.com/Jordanminota/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-2 bg-blue-600 mr-4 ml-4 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-lg transition-colors duration-300"
-            >
-              <span className="animate-beat inline-block pr-0">  ⚡️ </span> Mensaje
-            </a>
-          </p>
-        </div>
-        <footer className="w-full h-16 mt-auto overflow-hidden text-white hidden md:block">
-          <div className="relative w-full h-full overflow-hidden">
-            <div
-                className="absolute flex whitespace-nowrap animate-slide text-sm items-center h-full"
-                style={{gap: "1rem"}}
-            >
-              {texts.map((text, index) => (
-                  <span key={index} className="px-4 text-lg">
+          <div
+              className="fb-like ml-60 mt-4"
+              data-href="https://www.facebook.com/Jordanminota/"
+              data-width=""
+              data-layout=""
+              data-action="like"
+              data-size="large"
+              data-share="false"
+          ></div>
+          <div
+              className="hidden md:block text-black fixed bottom-12 right-4 bg-gray-300 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-lg flex-col items-center z-50"
+              style={{animation: "fadeIn 1.5s ease-in-out",}}
+          >
+            <p className="text-black">
+              Puedes reporta alguna falla o enviar mas diseños - Pensando en los que no pueden salir pero Apoyan al
+              Gobierno del Cambio
+
+              <a
+                  href="https://www.facebook.com/Jordanminota/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 bg-gray-700 mr-4 ml-4 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded-lg transition-colors duration-300"
+              >
+                <span className="animate-beat inline-block pr-0">  ⚡️ </span> Mensaje
+              </a>
+            </p>
+          </div>
+          <footer className="w-full h-16 mt-auto overflow-hidden text-white hidden md:block">
+            <div className="relative w-full h-full overflow-hidden">
+              <div
+                  className="absolute flex whitespace-nowrap animate-slide text-sm items-center h-full"
+                  style={{gap: "1rem"}}
+              >
+                {texts.map((text, index) => (
+                    <span key={index} className="px-4 text-lg">
                   {text}
                 </span>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        </footer>
-      </div>
-    </>
+          </footer>
+        </div>
+      </>
   );
 }
