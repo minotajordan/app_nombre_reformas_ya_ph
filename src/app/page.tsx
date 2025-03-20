@@ -273,6 +273,7 @@ export default function Home() {
       <>
 
         <Head>
+          {/* Código ya existente */}
           <title>Apoyo Digital a las Reformas Sociales</title>
           <meta name="description" content="Crea ahora tu apoyo digital y súbelo a las redes #ReformasYa." />
           <meta name="author" content="Jordan Minota" />
@@ -286,6 +287,12 @@ export default function Home() {
           <meta name="twitter:title" content="Apoyo Digital a las Reformas Sociales" />
           <meta name="twitter:description" content="Crea ahora tu apoyo digital y súbelo a las redes #ReformasYa." />
           <meta name="twitter:image" content="https://example.com/path-to-your-image.png" />
+
+          {/* Google Tag Manager */}
+          <script async src="https://www.googletagmanager.com/gtag/js?id=G-PTCK5SJX9E"></script>
+          <script>
+            {`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-PTCK5SJX9E');`}
+          </script>
         </Head>
 
 
