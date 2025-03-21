@@ -364,7 +364,6 @@ export default function Home() {
           >
             Descargar Imagen { textInitial }
           </button>
-
           <div
               className="fb-like ml-60 mt-4"
               data-href="https://www.facebook.com/Jordanminota/"

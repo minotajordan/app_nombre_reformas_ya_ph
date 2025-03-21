@@ -29,8 +29,7 @@ export default function RootLayout({
     return (
         <html lang="es">
         <Head>
-
-            <title>Apoyo Digital a las Reformas Sociales</title>
+            <title>Apoyo digital a las Reformas Sociales</title>
             <meta
                 name="description"
                 content="Crea ahora tu apoyo digital y súbelo a las redes #ReformasYa."
@@ -38,35 +37,54 @@ export default function RootLayout({
             <meta name="author" content="Jordan Minota" />
             <meta
                 name="keywords"
-                content="Reformas sociales, Apoyo digital, Colombia, ReformasYa, Herramientas digitales"
+                content="reformas sociales, apoyo digital, colombia, reformas ya, herramientas digitales, apoyo social"
             />
-            <meta
-                property="og:title"
-                content="Apoyo Digital a las Reformas Sociales"
-            />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="canonical" href="https://reformaya.pactohistorico.co" />
+            <meta name="robots" content="index, follow" />
+
+            {/* Open Graph / Facebook Meta Tags */}
+            <meta property="og:title" content="Apoyo Digital a las Reformas Sociales" />
             <meta
                 property="og:description"
                 content="Crea ahora tu apoyo digital y súbelo a las redes #ReformasYa."
             />
             <meta
                 property="og:image"
-                content="https://example.com/path-to-your-image.png"
+                content="https://reformaya.pactohistorico.co/images/mapa-reformas-sociales.png"
             />
-            <meta property="og:url" content="https://example.com" />
+            <meta property="og:image:alt" content="Mapa digital de apoyo a reformas sociales" />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
+            <meta property="og:url" content="https://reformaya.pactohistorico.co" />
             <meta property="og:type" content="website" />
-            <meta name="twitter:card" content="summary_large_image" />
+
+            {/* Google Rich Snippets */}
+            <meta itemProp="name" content="Apoyo Digital a las Reformas Sociales" />
             <meta
-                name="twitter:title"
-                content="Apoyo Digital a las Reformas Sociales"
+                itemProp="description"
+                content="Crea ahora tu apoyo digital y súbelo a las redes #ReformasYa."
             />
+            <meta
+                itemProp="image"
+                content="https://reformaya.pactohistorico.co/images/mapa-reformas-sociales.png"
+            />
+
+            {/* Twitter Meta Tags */}
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content="Apoyo Digital a las Reformas Sociales" />
             <meta
                 name="twitter:description"
                 content="Crea ahora tu apoyo digital y súbelo a las redes #ReformasYa."
             />
             <meta
                 name="twitter:image"
-                content="https://example.com/path-to-your-image.png"
+                content="https://reformaya.pactohistorico.co/images/mapa-reformas-sociales.png"
             />
+            <meta name="twitter:image:alt" content="Mapa digital de apoyo a reformas sociales" />
+            <meta name="twitter:image:src" content="https://reformaya.pactohistorico.co/images/mapa-reformas-sociales.png" />
+            <meta name="twitter:image:width" content="1200" />
+            <meta name="twitter:image:height" content="630" />
         </Head>
         {/* Google Analytics */}
         <Script
